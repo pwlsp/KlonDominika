@@ -10,7 +10,7 @@ std::string hello_world() {
 
     // Build the formatted string using a stringstream
     std::stringstream resultStream;
-    resultStream << "Hello, World! " << std::put_time(std::localtime(&now), "%Y-%m-%d") << "!";
+    resultStream << "Hello, World! Test test" << std::put_time(std::localtime(&now), "%Y-%m-%d") << "!";
 
     // Return the formatted string
     return resultStream.str();
