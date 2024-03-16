@@ -4,7 +4,8 @@
 #include <sstream>
 #include <iomanip>
 
-std::string hello_world() {
+std::string hello_world()
+{
     // Get the current time
     auto now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 
