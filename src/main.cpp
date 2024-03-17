@@ -23,7 +23,6 @@ std::vector<int> sort_using_algorithm(std::vector<int> &data, int algorithm)
         std::sort(data.begin(), data.end());
         break;
     }
-    
     return data;
 }
 
