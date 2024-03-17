@@ -23,7 +23,7 @@ vector<int> insertionSort(const vector<int> &arr)
         }
         sortedArray[j + 1] = key;
     }
-    reverse(sortedArray.begin(), sortedArray.end());
+    // reverse(sortedArray.begin(), sortedArray.end());
     return sortedArray;
 }
 
@@ -104,7 +104,7 @@ int partition_r(vector<int> &arr, int start, int end)
     // Swap A[random] with A[high]
     swap(arr[random], arr[end]);
     
-    cout << "random: " << random << endl; 
+    // cout << "random: " << random << endl; 
 
     return partition(arr, start, end);
 }
@@ -126,8 +126,8 @@ vector<int> quickSort_r(vector<int> arr, int start, int end)
     int p = partition_r(arr, start, end);
     arr = quickSort_r(arr, start, p - 1);
     arr = quickSort_r(arr, p + 1, end);
-    printArray(arr);
-    cout << endl;
+    // printArray(arr);
+    // cout << endl;
     return arr;
 }
 
@@ -138,22 +138,19 @@ vector<int> sort_using_algorithm(vector<int> &data, int algorithm)
     switch (algorithm)
     {
     case 1:
-        data = quickSort(data, 0, data.size() - 1);
-        cout << "Quick sort | max left pivot 11- ";
-        break;
-
-    case 2:
-        data = quickSort_r(data, 0, data.size() - 1);
-        cout << "Quick sort | random pivot 22- ";
-        break;
-
-    case 3:
         data = insertionSort(data);
         cout << "Insertion sort - ";
         break;
+    
+    case 5:
+        data = quickSort(data, 0, data.size() - 1);
+        reverse(data.begin(), data.end());
+        cout << "Quick sort | max left pivot - ";
+        break;
 
-    case 4:
-        sort(data.begin(), data.end());
+    case 6:
+        data = quickSort_r(data, 0, data.size() - 1);
+        cout << "Quick sort | random pivot - ";
         break;
 
     default:

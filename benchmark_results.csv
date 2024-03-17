@@ -1,0 +1,7 @@
+Algorithm,InputSize,Time
+shell_sort,,
+quick_sort_random_pivot,,
+selection_sort,,
+insertion_sort,,
+heap_sort,,
+quick_sort_left_pivot,,
