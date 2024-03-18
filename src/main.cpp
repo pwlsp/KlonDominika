@@ -8,85 +8,41 @@
 
 using namespace std;
 
-vector<int> insertionSort(const vector<int> &arr)
-{
-    std::vector<int> sortedArray = arr;
-    int n = sortedArray.size();
-    for (int i = 1; i < n; i++)
-    {
-        int key = sortedArray[i];
-        int j = i - 1;
-        while (j >= 0 && sortedArray[j] > key)
-        {
-            sortedArray[j + 1] = sortedArray[j];
-            j = j - 1;
-        }
-        sortedArray[j + 1] = key;
-    }
-    // reverse(sortedArray.begin(), sortedArray.end());
-    return sortedArray;
-}
-
-// int partition(vector<int> &arr, int start, int end)
-// {
-//     int pivot = arr[start];
-//     // for (int u = 0; u < 10; u++)
-//     // {
-//     //     pivot = start + (std::rand() % (end - start + 1));
-//     //     cout << "pivot  " << start << " - " << end << ":  " << pivot << endl;
-//     // }
-    
-//     int count = 0;
-//     for (int i = start + 1; i <= end; i++)
-//     {
-//         if (arr[i] <= pivot)
-//             count++;
-//     }
-//     int pivotIndex = start + count;
-//     swap(arr[pivotIndex], arr[start]);
-//     int i = start, j = end;
-//     while (i < pivotIndex && j > pivotIndex)
-//     {
-//         while (arr[i] <= pivot)
-//         {
-//             i++;
-//         }
-//         while (arr[j] > pivot)
-//         {
-//             j--;
-//         }
-//         if (i < pivotIndex && j > pivotIndex)
-//         {
-//             swap(arr[i++], arr[j--]);
-//         }
-//     }
-//     return pivotIndex;
-// }
-
 void printArray(vector<int> arr)
 {
-	int i;
-	for (i = 0; i < arr.size(); i++)
-		cout<<arr[i]<<" "; 
+    cout << arr[0];
+    for (int i = 1; i < min(100, static_cast<int>(arr.size())); ++i)
+    {
+        cout << " " << arr[i];
+    }
+}
+
+void insertionSort(vector<int> &arr)
+{
+    int n = arr.size();
+    for (int i = 1; i < n; i++)
+    {
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key)
+        {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
 }
 
 int partition(vector<int> &arr, int start, int end)
 {
-    // pivot
-    int pivot = arr[end]; 
-   
-    // Index of smaller element
-    int i = (start - 1); 
- 
-    for (int j = start; j <= end - 1; j++) 
+    int pivot = arr[end];
+    int i = start - 1;
+
+    for (int j = start; j <= end - 1; j++)
     {
-        // If current element is smaller
-        // than or equal to pivot
-        if (arr[j] <= pivot) {
- 
-            // increment index of 
-            // smaller element
-            i++; 
+        if (arr[j] <= pivot)
+        {
+            i++;
             swap(arr[i], arr[j]);
         }
     }
@@ -100,35 +56,33 @@ int partition_r(vector<int> &arr, int start, int end)
     // low .. high
     srand(time(NULL));
     int random = start + rand() % (end - start);
- 
+
     // Swap A[random] with A[high]
     swap(arr[random], arr[end]);
-    
-    // cout << "random: " << random << endl; 
+
+    // cout << "random: " << random << endl;
 
     return partition(arr, start, end);
 }
 
-vector<int> quickSort(vector<int> arr, int start, int end)
+void quickSort(vector<int> &arr, int start, int end)
 {
-    if (start >= end)
-        return arr;
-    int p = partition(arr, start, end);
-    arr = quickSort(arr, start, p - 1);
-    arr = quickSort(arr, p + 1, end);
-    return arr;
+    if (start < end)
+    {
+        int p = partition(arr, start, end);
+        quickSort(arr, start, p - 1);
+        quickSort(arr, p + 1, end);
+    }
 }
 
-vector<int> quickSort_r(vector<int> arr, int start, int end)
+void quickSort_r(vector<int> &arr, int start, int end)
 {
-    if (start >= end)
-        return arr;
-    int p = partition_r(arr, start, end);
-    arr = quickSort_r(arr, start, p - 1);
-    arr = quickSort_r(arr, p + 1, end);
-    // printArray(arr);
-    // cout << endl;
-    return arr;
+    if (start < end)
+    {
+        int p = partition_r(arr, start, end);
+        quickSort_r(arr, start, p - 1);
+        quickSort_r(arr, p + 1, end);
+    }
 }
 
 vector<int> sort_using_algorithm(vector<int> &data, int algorithm)
@@ -138,23 +92,23 @@ vector<int> sort_using_algorithm(vector<int> &data, int algorithm)
     switch (algorithm)
     {
     case 1:
-        data = insertionSort(data);
+        insertionSort(data);
         cout << "Insertion sort - ";
         break;
-    
+
     case 5:
-        data = quickSort(data, 0, data.size() - 1);
-        reverse(data.begin(), data.end());
+        quickSort(data, 0, data.size() - 1);
         cout << "Quick sort | max left pivot - ";
         break;
 
     case 6:
-        data = quickSort_r(data, 0, data.size() - 1);
+        quickSort_r(data, 0, data.size() - 1);
         cout << "Quick sort | random pivot - ";
         break;
 
     default:
-        sort(data.begin(), data.end());
+        // sort(data.begin(), data.end());
+        cout << "Wykonuje \'default\' w \'switch case\'" << endl;
         break;
     }
     return data;
@@ -183,11 +137,8 @@ int main(int argc, char *argv[])
     vector<int> sorted_data = sort_using_algorithm(data, algorithm_number);
 
     // Print the sorted data
-    cout << "Sorted data:";
-    for (int i = 0; i < min(10, static_cast<int>(sorted_data.size())); ++i)
-    {
-        cout << " " << sorted_data[i];
-    }
+    cout << "POMOCY - Sorted data:\n";
+    printArray(sorted_data);
     cout << endl;
 
     return 0;
