@@ -27,9 +27,9 @@ benchmark() {
 # Map algorithm names to numbers
 declare -A algorithm_mapping=(
     ["insertion_sort"]=1
-    ["shell_sort"]=2
-    ["selection_sort"]=3
-    ["heap_sort"]=4
+    # ["shell_sort"]=2
+    # ["selection_sort"]=3
+    # ["heap_sort"]=4
     ["quick_sort_left_pivot"]=5
     ["quick_sort_random_pivot"]=6
 )
@@ -44,7 +44,7 @@ done
 
 # List of input file types
 #input_files=("random_array" "increasing_array" "decreasing_array" "constant_array" "a_shaped_array")
-input_files=("random_array")
+input_files=("a_shaped_array")
 
 # Create or clear the CSV file
 echo "Algorithm,InputSize,Time" > benchmark_results.csv
