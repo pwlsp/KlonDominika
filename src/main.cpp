@@ -8,6 +8,47 @@
 
 using namespace std;
 
+// int partition_zle(vector<int> &arr, int p, int r)
+// {
+//     int pivot = arr[r];
+//     int i = p - 1;
+//
+//     for (int j = p; j <= r - 1; j++)
+//     {
+//         if (arr[j] <= pivot)
+//         {
+//             i++;
+//             swap(arr[i], arr[j]);
+//         }
+//     }
+//     swap(arr[i + 1], arr[r]);
+//     return (i + 1);
+// }
+
+// int partition_s(vector<int> &arr, int p, int r)
+// {
+//     cout<<"test";
+//     int pivot = arr[r];
+//     int i = p;
+//     int j = r;
+//
+//     while (true)
+//     {
+//         while (arr[i] < pivot)
+//             i++;
+//         while (arr[j] > pivot)
+//             j--;
+//         if (i <= j)
+//         {
+//             swap(arr[i], arr[j]);
+//             i++;
+//             j--;
+//         }
+//         else
+//             return j;
+//     }
+// }
+
 void printArray(vector<int> arr)
 {
     cout << arr[0];
@@ -20,75 +61,74 @@ void printArray(vector<int> arr)
 void insertionSort(vector<int> &arr)
 {
     int n = arr.size();
-    for (int i = 1; i < n; i++)
+    for (int j = 1; j < n; j++)
     {
-        int key = arr[i];
-        int j = i - 1;
-        while (j >= 0 && arr[j] > key)
+        int key = arr[j];
+        int i = j - 1;
+        // >= bo tu pierwszy indeks to nie 1 jak w prezentacji
+        while (i >= 0 && arr[i] > key)
         {
-            arr[j + 1] = arr[j];
-            j = j - 1;
+            arr[i + 1] = arr[i];
+            i = i - 1;
         }
-        arr[j + 1] = key;
+        arr[i + 1] = key;
     }
 }
 
-int partition(vector<int> &arr, int start, int end)
-{
-    int pivot = arr[end];
-    int i = start - 1;
+int partition(vector<int> &arr, int p, int r) {
+    int pivot = arr[p];
+    int i = p;
+    int j = r;
 
-    for (int j = start; j <= end - 1; j++)
-    {
-        if (arr[j] <= pivot)
-        {
+    while (i < j) {
+        while (arr[i] <= pivot && i < r) {
             i++;
+        }
+        while (arr[j] > pivot && j > p) {
+            j--;
+        }
+        if (i < j) {
             swap(arr[i], arr[j]);
         }
     }
-    swap(arr[i + 1], arr[end]);
-    return (i + 1);
+    swap(arr[p], arr[j]);
+    return j;
 }
 
-int partition_r(vector<int> &arr, int start, int end)
+int partition_r(vector<int> &arr, int p, int r)
 {
-    // Generate a random number in between
-    // low .. high
     srand(time(NULL));
-    int random = start + rand() % (end - start);
+    int random = p + rand() % (r - p);
 
-    // Swap A[random] with A[high]
-    swap(arr[random], arr[end]);
+    swap(arr[random], arr[p]);
 
     // cout << "random: " << random << endl;
 
-    return partition(arr, start, end);
+    return partition(arr, p, r);
 }
 
-void quickSort(vector<int> &arr, int start, int end)
+void quickSort(vector<int> &arr, int p, int r)
 {
-    if (start < end)
+    if (p < r)
     {
-        int p = partition(arr, start, end);
-        quickSort(arr, start, p - 1);
-        quickSort(arr, p + 1, end);
+        int q = partition(arr, p, r);
+        quickSort(arr, p, q - 1);
+        quickSort(arr, q + 1, r);
     }
 }
 
-void quickSort_r(vector<int> &arr, int start, int end)
+void quickSort_r(vector<int> &arr, int p, int r)
 {
-    if (start < end)
+    if (p < r)
     {
-        int p = partition_r(arr, start, end);
-        quickSort_r(arr, start, p - 1);
-        quickSort_r(arr, p + 1, end);
+        int q = partition_r(arr, p, r);
+        quickSort_r(arr, p, q - 1);
+        quickSort_r(arr, q + 1, r);
     }
 }
 
 vector<int> sort_using_algorithm(vector<int> &data, int algorithm)
 {
-    // This function takes the algorithm identifier as input
-    // However, it always uses the sorted function in C++
     switch (algorithm)
     {
     case 1:
@@ -107,7 +147,7 @@ vector<int> sort_using_algorithm(vector<int> &data, int algorithm)
         break;
 
     default:
-        // sort(data.begin(), data.end());
+        // sort(data.begin(), data.r());
         cout << "Wykonuje \'default\' w \'switch case\'" << endl;
         break;
     }
@@ -125,7 +165,7 @@ int main(int argc, char *argv[])
 
     int algorithm_number = stoi(argv[2]);
 
-    // Read input data from standard input until the end of file (EOF)
+    // Read input data from standard input until the r of file (EOF)
     vector<int> data;
     int num;
     while (cin >> num)
