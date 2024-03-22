@@ -156,7 +156,6 @@ vector<int> sort_using_algorithm(vector<int> &data, int algorithm)
 
 int main(int argc, char *argv[])
 {
-    // Command-line arguments: ./a.out --algorithm <algorithm_number>
     if (argc != 3 || string(argv[1]) != "--algorithm")
     {
         std::cout << "Usage: ./a.out --algorithm <algorithm_number>\n";
@@ -165,19 +164,18 @@ int main(int argc, char *argv[])
 
     int algorithm_number = stoi(argv[2]);
 
-    // Read input data from standard input until the r of file (EOF)
     vector<int> data;
     int num;
+    //żeby nie wczytywało pierwszego
+    cin >> num;
     while (cin >> num)
     {
         data.push_back(num);
     }
 
-    // Perform sorting using the specified algorithm (ignored in this example)
     vector<int> sorted_data = sort_using_algorithm(data, algorithm_number);
 
-    // Print the sorted data
-    cout << "POMOCY - Sorted data:\n";
+    cout << "- Sorted data:\n";
     printArray(sorted_data);
     cout << endl;
 
