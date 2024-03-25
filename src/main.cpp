@@ -117,13 +117,13 @@ void quickSort(vector<int> &arr, int p, int r)
     }
 }
 
-void quickSort_r(vector<int> &arr, int p, int r)
+void quickSort_r(vector<int> &arr, int p, int r, int (*partition_func)(vector<int>&, int, int))
 {
     if (p < r)
     {
-        int q = partition_r(arr, p, r);
-        quickSort_r(arr, p, q - 1);
-        quickSort_r(arr, q + 1, r);
+        int q = partition_func(arr, p, r);
+        quickSort_r(arr, p, q - 1, partition_func);
+        quickSort_r(arr, q + 1, r, partition_func);
     }
 }
 
@@ -142,7 +142,7 @@ vector<int> sort_using_algorithm(vector<int> &data, int algorithm)
         break;
 
     case 6:
-        quickSort_r(data, 0, data.size() - 1);
+        quickSort_r(data, 0, data.size() - 1, partition_r);
         cout << "Quick sort | random pivot - ";
         break;
 
