@@ -8,47 +8,6 @@
 
 using namespace std;
 
-// int partition_zle(vector<int> &arr, int p, int r)
-// {
-//     int pivot = arr[r];
-//     int i = p - 1;
-//
-//     for (int j = p; j <= r - 1; j++)
-//     {
-//         if (arr[j] <= pivot)
-//         {
-//             i++;
-//             swap(arr[i], arr[j]);
-//         }
-//     }
-//     swap(arr[i + 1], arr[r]);
-//     return (i + 1);
-// }
-
-// int partition_s(vector<int> &arr, int p, int r)
-// {
-//     cout<<"test";
-//     int pivot = arr[r];
-//     int i = p;
-//     int j = r;
-//
-//     while (true)
-//     {
-//         while (arr[i] < pivot)
-//             i++;
-//         while (arr[j] > pivot)
-//             j--;
-//         if (i <= j)
-//         {
-//             swap(arr[i], arr[j]);
-//             i++;
-//             j--;
-//         }
-//         else
-//             return j;
-//     }
-// }
-
 void printArray(vector<int> arr)
 {
     cout << arr[0];
